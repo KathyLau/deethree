@@ -3,7 +3,7 @@
 <html>
   <head>
     <script src="d3-src/d3.min.js" charset="utf-8"></script>
-    <title>D3 Intro</title>
+    <title>US Federal Budget</title>
 
     <style>
      .chart div {
@@ -19,42 +19,67 @@
   </head>
 
   <body>
-    <h2>Static Chart</h2>
-    <div class="chart">
-      <div style="width: 40px;">4</div>
-      <div style="width: 80px;">8</div>
-      <div style="width: 150px;">15</div>
-      <div style="width: 160px;">16</div>
-      <div style="width: 230px;">23</div>
-      <div style="width: 420px;">42</div>
+    <center>
+    <h1> 2016 vs. 2017 </h1></center>
+
+    <h2>Total Surplus/Deficit as % of GDP</h2>
+    <div class="chart" id="sd_gdp">
     </div>
 
-    <hr>
-    
-    <h2>Dyamic Chart</h2>
-    <div class="chart" id="dynamic">
+    <h2>Total Surplus/Deficit</h2>
+    <div class="chart" id="sd">
+    </div>
+
+    <h2>GDP</h2>
+    <div class="chart" id="gdp">
+    </div>
+
+    <h2>Total Revenues</h2>
+    <div class="chart" id="rev">
+    </div>
+
+    <h2>Total Spending</h2>
+    <div class="chart" id="spend">
+    </div>
+
+    <h2>Total Federal Debt as % of GDP</h2>
+    <div class="chart" id="fd_gdp">
+    </div>
+    <h2>Total Federal Debt</h2>
+    <div class="chart" id="fd">
     </div>
 
     <script>
-     var dyn = d3.select("#dynamic");
-     var info = [4, 8, 15, 16, 23, 42];
+    //put in list of numbers here
+     var info_rev = [2.99, 3.21];
+     var info_spend = [3.54, 3.65];
 
-     var makeBars = function() {
-       
-       dyn.selectAll("div")
+     var colors = ['#43a2ca', '#f03b20'];
+
+   var makeBars = function(graph, unit, info) {
+     var dyn = d3.select(graph);
+     dyn.selectAll("div")
 	  .data(info)
 	  .enter()
 	  .append("div")
 	  .style("width", function(d) {
-	    return d + "px";
+	    return d  + "px";
 	  })
+    .style("background-color", function(d) {
+    if (d==info[0]) {
+      return colors[2];
+    }
+    else {
+      return colors[1];
+    }
+  })
 	  .text( function(d) {
-	    return d;
+	    return d + " " + unit;
 	  });
      };
 
-     var transitionTest = function( scale ) {
-
+     var transitionTest = function( graph, scale, info ) {
+       var dyn = d3.select(graph);
        dyn.selectAll("div")
 	  .data(info)
 	  .transition()
@@ -63,7 +88,13 @@
 	    return d * scale + "px";
 	  });
      };
-     
+
+//put in graph info in id#, unit of price, and name of list format
+     makeBars('#rev', "trillion", info_rev);
+     transitionTest('#rev', 100, info_rev);
+
+     makeBars('#spend', "trillion", info_spend);
+     transitionTest('#spend', 100, info_spend);
     </script>
 
   </body>
