@@ -22,14 +22,14 @@
     <center>
     <h1> 2016 vs. 2017 </h1></center>
 
-    <h2>Total Surplus/Deficit as % of GDP</h2>
+    <h2>Total Deficit as % of GDP</h2>
     <div class="chart" id="sd_gdp">
     </div>
 
-    <h2>Total Surplus/Deficit</h2>
+    <h2>Total Deficit</h2>
     <div class="chart" id="sd">
     </div>
-
+    
     <h2>GDP</h2>
     <div class="chart" id="gdp">
     </div>
@@ -51,10 +51,13 @@
 
     <script>
     //put in list of numbers here
-     var info_rev = [2.99, 3.21];
-     var info_spend = [3.54, 3.65];
+    var info_rev = [2.99, 3.21];
+    var info_spend = [3.54, 3.65];
+    var info_sd = [552, 443];
+    var info_sd_gdp = [3.3, 2.6];
+    var info_gdp = [16.5, 17];
 
-     var colors = ['#43a2ca', '#f03b20'];
+    var colors = ['#43a2ca', '#f03b20'];
 
    var makeBars = function(graph, unit, info) {
      var dyn = d3.select(graph);
@@ -90,11 +93,20 @@
      };
 
 //put in graph info in id#, unit of price, and name of list format
-     makeBars('#rev', "trillion", info_rev);
-     transitionTest('#rev', 100, info_rev);
+    makeBars('#rev', "trillion", info_rev);
+    transitionTest('#rev', 100, info_rev);
+    
+    makeBars('#spend', "trillion", info_spend);
+    transitionTest('#spend', 100, info_spend);
+    
+    makeBars('#sd', "billion", info_sd);
+    transitionTest('#sd', 1.5, info_sd);
 
-     makeBars('#spend', "trillion", info_spend);
-     transitionTest('#spend', 100, info_spend);
+    makeBars('#sd_gdp', "%", info_sd_gdp);
+    transitionTest('#sd_gdp', 100, info_sd_gdp);
+    
+    makeBars('#gdp', "Trillion", info_gdp);
+    transitionTest('#gdp', 35, info_gdp);
     </script>
 
   </body>
