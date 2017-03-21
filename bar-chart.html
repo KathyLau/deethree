@@ -20,7 +20,14 @@
 
   <body>
     <center>
-    <h1> 2016 vs. 2017 </h1> </center>
+      <h1> 2016 vs. 2017 </h1>
+    </center>
+    <br>
+    <center>
+      <h2> Legend </h2>
+      <div class="chart" id="legend"></div>
+    </center>
+    
     <h2>Total Deficit as % of GDP</h2>
     <div class="chart" id="sd_gdp">
     </div>
@@ -50,6 +57,7 @@
 
     <script>
     //put in list of numbers here
+    var info_leg = [2016, 2017];
     var info_rev = [2.99, 3.21];
     var info_spend = [3.54, 3.65];
     var info_sd = [552, 443];
@@ -82,18 +90,30 @@
 	  });
      };
 
-     var transitionTest = function( graph, scale, info ) {
-       var dyn = d3.select(graph);
-       dyn.selectAll("div")
-	  .data(info)
-	  .transition()
-	  .duration(2000)
-	  .style("width", function(d) {
-	    return d * scale + "px";
-	  });
-     };
+    var transitionTest = function( graph, scale, info ) {
+    var dyn = d3.select(graph);
+    dyn.selectAll("div")
+    .data(info)
+    .transition()
+    .duration(2000)
+    .style("width", function(d) {
+    return d * scale + "px";
+    });
+    };
+    
+    var mkleg = function(){
+    var dyn = d3.select('#legend');
+    dyn.selectAll("div").style("width", function(d){
+    return "26px";
+    });
+    };
+    
 
-//put in graph info in id#, unit of price, and name of list format
+    //put in graph info in id#, unit of price, and name of list format
+    
+    makeBars('#legend',"",info_leg);
+    mkleg();
+    
     makeBars('#rev', "trillion", info_rev);
     transitionTest('#rev', 100, info_rev);
     
